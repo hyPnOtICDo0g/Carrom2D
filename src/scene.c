@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "input.h"
 #include "scene.h"
 #include "carrom.h"
@@ -97,6 +99,102 @@ struct BoardStatus *initNewGame(struct GameState *gameState) {
 	boardStatus->pointsTeamTwo = 0;
 	boardStatus->coins = coins;
 	return boardStatus;
+}
+
+void shiftStrikerLeft(struct GameState *gameState, struct BoardStatus *status) {
+	int turn = status->turn;
+	struct Coin *coins = gameState->coins;
+	// set striker boundary upto the red dot
+	float strikerBoundary = 1 - BOARD_LINES_LENGTH - BOARD_LINES_WIDTH - BASE_LINE_SIZE;
+	// for players with turns 0 and 2 (actual turns are 1 and 3)
+	if(turn % 2 == 0) {
+		/*
+			If the striker is within it's boundary, shift it by increments of 0.02
+			based on a player's turn (the side of the board it is placed on).
+		*/
+		if(fabs(coins[MAX_COIN_COUNT - 1].center.x) <= strikerBoundary) {
+			coins[MAX_COIN_COUNT - 1].center.x -= (1 - turn) * 0.02;
+		}
+		else {
+			// if a player attempts to cause the striker to go out of bounds, prevent it
+			if(coins[MAX_COIN_COUNT - 1].center.x > 0) {
+				// the southern side of the board
+				if(turn == 0) {
+					coins[MAX_COIN_COUNT - 1].center.x -= 0.02;
+				}
+			}
+			else {
+				// the northern side of the board
+				if(turn == 2) {
+					coins[MAX_COIN_COUNT - 1].center.x += 0.02;
+				}
+			}
+		}
+	}
+	// for players with turns 1 and 3 (actual turns are 2 and 4)
+	else {
+		if(fabs(coins[MAX_COIN_COUNT - 1].center.y) <= strikerBoundary) {
+			coins[MAX_COIN_COUNT - 1].center.y -= (2 - turn) * 0.02;
+		}
+		else {
+			if(coins[MAX_COIN_COUNT - 1].center.y > 0) {
+				// the eastern side of the board
+				if(turn == 1) {
+					coins[MAX_COIN_COUNT - 1].center.y -= 0.02;
+				}
+			}
+			else {
+				// the western side of the board
+				if(turn == 3) {
+					coins[MAX_COIN_COUNT - 1].center.y += 0.02;
+				}
+			}
+		}
+	}
+}
+
+void shiftStrikerRight(struct GameState *gameState, struct BoardStatus *status) {
+	int turn = status->turn;
+	struct Coin *coins = gameState->coins;
+	float strikerBoundary = 1 - BOARD_LINES_LENGTH - BOARD_LINES_WIDTH - BASE_LINE_SIZE;
+	/*
+		Reversing the mathematical operations (i.e. subtracting instead of adding) in the
+		`shiftStrikerLeft` function, the striker can be moved to the right side of the board.
+	*/
+	if(turn % 2 == 0) {
+		if(fabs(coins[MAX_COIN_COUNT - 1].center.x) <= strikerBoundary) {
+			coins[MAX_COIN_COUNT - 1].center.x += (1 - turn) * 0.02;
+		}
+		else {
+			if(coins[MAX_COIN_COUNT - 1].center.x < 0) {
+				if(turn == 0) {
+					coins[MAX_COIN_COUNT - 1].center.x += 0.02;
+				}
+			}
+			else {
+				if(turn == 2) {
+					coins[MAX_COIN_COUNT - 1].center.x -= 0.02;
+				}
+			}
+		}
+	}
+	else {
+		if(fabs(coins[MAX_COIN_COUNT - 1].center.y) <= strikerBoundary) {
+			coins[MAX_COIN_COUNT - 1].center.y += (2 - turn) * 0.02;
+		}
+		else {
+			if(coins[MAX_COIN_COUNT - 1].center.y < 0) {
+				if(turn == 1) {
+					coins[MAX_COIN_COUNT - 1].center.y += 0.02;
+				}
+			}
+			else {
+				if(turn == 3) {
+					coins[MAX_COIN_COUNT - 1].center.y -= 0.02;
+				}
+			}
+		}
+	}
 }
 
 void *initScene(void *args) {

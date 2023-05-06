@@ -1,9 +1,9 @@
+#include <stdbool.h>
+
 #include "rules.h"
 #include "scene.h"
 #include "carrom.h"
 #include "utilities.h"
-
-#include <stdbool.h>
 
 void initNewTurn(struct GameState *gameState, struct BoardStatus *start) {
 	int currentTeam = start->currentTeam, initialPoints, finalPoints;

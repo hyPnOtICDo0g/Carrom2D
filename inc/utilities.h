@@ -1,6 +1,9 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+// circumvent compiler warnings for unused variables in callback functions
+#define UNUSED(x) (void)(x)
+
 // check if sufficient memory is available, else terminate
 void memCheck(void *ptr);
 

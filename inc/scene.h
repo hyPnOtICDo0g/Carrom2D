@@ -30,6 +30,12 @@ void initNewBoard(struct GameState *gameState, struct BoardStatus *status);
 // set the necessary game variables to start a new game
 struct BoardStatus *initNewGame(struct GameState *gameState);
 
+// shift striker to the left side of the board
+void shiftStrikerLeft(struct GameState *gameState, struct BoardStatus *status);
+
+// shift striker to the right side of the board
+void shiftStrikerRight(struct GameState *gameState, struct BoardStatus *status);
+
 // the start routine passed to pthread_create() which creates a scene with all game objects
 void *initScene(void *args);
 
