@@ -54,7 +54,7 @@
 	white: 2
 	black: 2
 	striker: 1
-	number of coins: 6
+	total: 6
 */
 
 #define MAX_COIN_COUNT 6
@@ -67,15 +67,15 @@
 #define ARROW_HEAD_POINT 0.25
 #define ARROW_BASE_POINT 0.7
 
-/* POWER METER CONSTANTS */
+/* POWER READER CONSTANTS */
 
-#define POWER_METER_ON YELLOW
-#define POWER_METER_OFF WHITE
+#define POWER_READER_ON YELLOW
+#define POWER_READER_OFF WHITE
 
-#define POWER_METER_WIDTH 0.10
+#define POWER_READER_WIDTH 0.10
 
-#define MIN_POWER_METER 1
-#define MAX_POWER_METER 150
+#define MIN_POWER_READER 1
+#define MAX_POWER_READER 150
 
 /* POINTS CONSTANTS */
 
@@ -118,11 +118,5 @@ struct GameState {
 	int numberOfPlayers;    // number of players playing the game; 2 or 4
 	struct Coin *coins;     // keep track of coins on the board
 };
-
-// global variables to keep track of the game variables
-
-extern struct BoardStatus start;
-
-extern struct GameState state;
 
 #endif

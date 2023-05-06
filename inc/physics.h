@@ -9,8 +9,8 @@
 #define STRIKER_MASS 15     // striker mass in grams
 
 /*
-    The speed at which the coins will move visually from the center to
-    the other edge in one second is determined by VELOCITY and TRIGGER
+	The speed at which the coins will move visually from the center to
+	the other edge in one second is determined by VELOCITY and TRIGGER
 */
 
 #define TRIGGER 10          // duration in milliseconds for a callback function to be executed

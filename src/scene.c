@@ -1,6 +1,7 @@
 #include "input.h"
 #include "scene.h"
 #include "carrom.h"
+#include "context.h"
 #include "display.h"
 #include "physics.h"
 #include "utilities.h"
@@ -17,9 +18,17 @@ struct GameState *createNewGameState(void) {
 	return gameState;
 }
 
+void initNewBoard(struct GameState *gameState, struct BoardStatus *status) {
+	initCarromCoins(gameState);
+	status->turn = 0;
+	status->currentTeam = 1;
+	initStriker(gameState, status->turn);
+	copyCoinArrays(gameState->coins, status->coins, MAX_COIN_COUNT);
+}
+
 void initStriker(struct GameState *gameState, int turn) {
 	struct Coin *coins = gameState->coins;
-	// set the angle the striker is facing to 90 degrees
+	// set the angle the striker is facing, to 90 degrees
 	float theta = 90.0 * ((1 + turn) % 4);
 	// set the striker at the side of the player who goes first
 	coins[MAX_COIN_COUNT - 1].center.x = (turn % 2) * (2 - turn) * ((1 - BOARD_LINES_LENGTH - (BOARD_LINES_WIDTH / 2.00)));
@@ -94,13 +103,25 @@ void *initScene(void *args) {
 	struct BoardStatus *init = initNewGame(&state);
 	start = *init;
 	glutInit(&(((struct CmdArgs *) args)->argc), ((struct CmdArgs *) args)->argv);
+	// using two buffers to achieve smoother animation
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT);
 	glutCreateWindow("Multiplayer Carrom");
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// anti-aliasing lines to reduce jaggies
+	glEnable(GL_LINE_SMOOTH);
+	glHint(GL_LINE_SMOOTH, GL_NICEST);
+	glEnable(GL_POINT_SMOOTH);
+	glHint(GL_POINT_SMOOTH, GL_NICEST);
+
 	glutDisplayFunc(display);
 	glutTimerFunc(TRIGGER, trigger, VELOCITY);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
+	// poll the joystick for button input once every 16ms
+	glutJoystickFunc(joystick, 16);
 	glutMainLoop();
 	return NULL;
 }

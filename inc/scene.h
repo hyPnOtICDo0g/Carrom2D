@@ -7,7 +7,7 @@
 
 #define INITIAL_WINDOW_WIDTH 800
 #define INITIAL_WINDOW_HEIGHT 700
-#define BOARD_SCALING_FACTOR 0.75	// one constant to scale the entire board
+#define BOARD_SCALING_FACTOR 0.75	// single constant to scale the entire board
 
 // an additional struct definition for storing command-line arguments
 struct CmdArgs {
@@ -23,6 +23,9 @@ void initStriker(struct GameState *gameState, int turn);
 
 // initialize the positions and velocities of the coins on the board
 void initCarromCoins(struct GameState *gameState);
+
+// initialize a new board state with all objects in their initial positions
+void initNewBoard(struct GameState *gameState, struct BoardStatus *status);
 
 // set the necessary game variables to start a new game
 struct BoardStatus *initNewGame(struct GameState *gameState);
