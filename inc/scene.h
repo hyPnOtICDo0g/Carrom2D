@@ -9,12 +9,6 @@
 #define INITIAL_WINDOW_HEIGHT 700
 #define BOARD_SCALING_FACTOR 0.75	// single constant to scale the entire board
 
-// an additional struct definition for storing command-line arguments
-struct CmdArgs {
-	int argc;
-	char **argv;
-};
-
 // allocate memory for the global game state
 struct GameState *createNewGameState(void);
 
@@ -35,8 +29,5 @@ void shiftStrikerLeft(struct GameState *gameState, struct BoardStatus *status);
 
 // shift striker to the right side of the board
 void shiftStrikerRight(struct GameState *gameState, struct BoardStatus *status);
-
-// the start routine passed to pthread_create() which creates a scene with all game objects
-void *initScene(void *args);
 
 #endif

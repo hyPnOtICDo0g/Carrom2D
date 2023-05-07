@@ -1,14 +1,9 @@
 #include <math.h>
 
-#include "input.h"
 #include "scene.h"
 #include "carrom.h"
-#include "context.h"
-#include "display.h"
 #include "physics.h"
 #include "utilities.h"
-
-struct BoardStatus start;
 
 struct GameState *createNewGameState(void) {
 	// allocate memory for six coins
@@ -20,12 +15,12 @@ struct GameState *createNewGameState(void) {
 	return gameState;
 }
 
-void initNewBoard(struct GameState *gameState, struct BoardStatus *status) {
+void initNewBoard(struct GameState *gameState, struct BoardStatus *start) {
 	initCarromCoins(gameState);
-	status->turn = 0;
-	status->currentTeam = 1;
-	initStriker(gameState, status->turn);
-	copyCoinArrays(gameState->coins, status->coins, MAX_COIN_COUNT);
+	start->turn = 0;
+	start->currentTeam = 1;
+	initStriker(gameState, start->turn);
+	copyCoinArrays(gameState->coins, start->coins, MAX_COIN_COUNT);
 }
 
 void initStriker(struct GameState *gameState, int turn) {
@@ -101,8 +96,8 @@ struct BoardStatus *initNewGame(struct GameState *gameState) {
 	return boardStatus;
 }
 
-void shiftStrikerLeft(struct GameState *gameState, struct BoardStatus *status) {
-	int turn = status->turn;
+void shiftStrikerLeft(struct GameState *gameState, struct BoardStatus *start) {
+	int turn = start->turn;
 	struct Coin *coins = gameState->coins;
 	// set striker boundary upto the red dot
 	float strikerBoundary = 1 - BOARD_LINES_LENGTH - BOARD_LINES_WIDTH - BASE_LINE_SIZE;
@@ -153,8 +148,8 @@ void shiftStrikerLeft(struct GameState *gameState, struct BoardStatus *status) {
 	}
 }
 
-void shiftStrikerRight(struct GameState *gameState, struct BoardStatus *status) {
-	int turn = status->turn;
+void shiftStrikerRight(struct GameState *gameState, struct BoardStatus *start) {
+	int turn = start->turn;
 	struct Coin *coins = gameState->coins;
 	float strikerBoundary = 1 - BOARD_LINES_LENGTH - BOARD_LINES_WIDTH - BASE_LINE_SIZE;
 	/*
@@ -195,31 +190,4 @@ void shiftStrikerRight(struct GameState *gameState, struct BoardStatus *status) 
 			}
 		}
 	}
-}
-
-void *initScene(void *args) {
-	struct BoardStatus *init = initNewGame(&state);
-	start = *init;
-	glutInit(&(((struct CmdArgs *) args)->argc), ((struct CmdArgs *) args)->argv);
-	// using two buffers to achieve smoother animation
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT);
-	glutCreateWindow("Multiplayer Carrom");
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	// anti-aliasing lines to reduce jaggies
-	glEnable(GL_LINE_SMOOTH);
-	glHint(GL_LINE_SMOOTH, GL_NICEST);
-	glEnable(GL_POINT_SMOOTH);
-	glHint(GL_POINT_SMOOTH, GL_NICEST);
-
-	glutDisplayFunc(display);
-	glutTimerFunc(TRIGGER, trigger, VELOCITY);
-	glutReshapeFunc(reshape);
-	glutKeyboardFunc(keyboard);
-	// poll the joystick for button input once every 16ms
-	glutJoystickFunc(joystick, 16);
-	glutMainLoop();
-	return NULL;
 }
