@@ -1,6 +1,9 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#define ESC 27
+#define SPACE 32
+
 // LB and RB buttons on a Xbox 360 controller
 #define GLUT_JOYSTICK_LEFT_BUMPER 0x0010
 #define GLUT_JOYSTICK_RIGHT_BUMPER 0x0020

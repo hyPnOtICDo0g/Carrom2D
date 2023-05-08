@@ -6,8 +6,8 @@
 	maintain the game context across callback functions having fixed argument types.
 */
 
-extern struct BoardStatus start;
+extern struct BoardStatus *start;
 
-extern struct GameState state;
+extern struct GameState *state;
 
 #endif

@@ -1,8 +1,5 @@
+#include <stdlib.h>
 #include <GL/glut.h>
-
-#ifdef _WIN32
-	#include <stdlib.h>
-#endif
 
 #include "input.h"
 #include "scene.h"
@@ -11,14 +8,14 @@
 #include "display.h"
 #include "utilities.h"
 
-struct GameState state;
-struct BoardStatus start;
+struct GameState *state;
+struct BoardStatus *start;
 
 int main(int argc, char **argv) {
 	// create a new shared game state
-	state = *createNewGameState();
+	state = createNewGameState();
 	// create a new empty game scene
-	start = *initNewGame(&state);
+	start = initNewGame(state);
 	// initialize the GLUT library
 	#ifdef _WIN32
 		/*
@@ -31,6 +28,8 @@ int main(int argc, char **argv) {
 	#else
 		glutInit(&argc, argv);
 	#endif
+	// register memory cleanup handler
+	atexit(exitGame);
 	// using two buffers to achieve smoother animation
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT);
@@ -51,6 +50,7 @@ int main(int argc, char **argv) {
 	glutSpecialFunc(special);
 	// poll the joystick for button input once every 16ms
 	glutJoystickFunc(joystick, 16);
+	glutFullScreen();
 	glutMainLoop();
 	return 0;
 }

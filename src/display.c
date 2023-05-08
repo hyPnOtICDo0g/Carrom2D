@@ -34,11 +34,11 @@ void reshape(GLint width, GLint height) {
 
 void trigger(int value) {
 	int i, j;
-	struct Coin *coins = state.coins;
+	struct Coin *coins = state->coins;
 	float reciprocalVelocity = 1.0 / (float) value;
 
-	if(state.strikerState == 1) {
-		state.currentPower = (state.currentPower + MIN_POWER_READER) % MAX_POWER_READER;
+	if(state->strikerState == 1) {
+		state->currentPower = (state->currentPower + MIN_POWER_READER) % MAX_POWER_READER;
 	}
 	else {
 		for(i = 0; i < MAX_COIN_COUNT; i ++) {
@@ -80,7 +80,7 @@ void trigger(int value) {
 			}
 		}
 		// change the state of the striker to make it stationary
-		state.strikerState = 1;
+		state->strikerState = 1;
 
 		for(i = 0; i < MAX_COIN_COUNT; i++) {
 			if(fabs(coins[i].velocity.x) <= COIN_STOP_LIMIT && fabs(coins[i].velocity.y) <= COIN_STOP_LIMIT) {
@@ -88,12 +88,12 @@ void trigger(int value) {
 				coins[i].velocity.y = 0;
 			}
 			else {
-				state.strikerState = 0;
+				state->strikerState = 0;
 			}
 		}
 		// if the striker is stationary, then proceed to the next player
-		if(state.strikerState == 1) {
-			initNewTurn(&state, &start);
+		if(state->strikerState == 1) {
+			initNewTurn(state, start);
 		}
 	}
 	// call the display callback function to render the new frame
@@ -115,7 +115,7 @@ void carromBoard(void) {
 }
 
 void carromCoins(void) {
-	int i; struct Coin *coins = state.coins;
+	int i; struct Coin *coins = state->coins;
 	// place coins in their initial positions
 	for(i = 0; i < (MAX_COIN_COUNT - 2) / 2; i++) {
 		// if the coin is in the pot, color it black
@@ -164,10 +164,10 @@ void carromCoins(void) {
 }
 
 void strikerDirection(void) {
-	float theta = state.theta;
-	struct Coin *coins = state.coins;
+	float theta = state->theta;
+	struct Coin *coins = state->coins;
 
-	if(state.strikerState == 1) {
+	if(state->strikerState == 1) {
 		float strikerX = BOARD_SCALING_FACTOR * coins[MAX_COIN_COUNT - 1].center.x;
 		float strikerY = BOARD_SCALING_FACTOR * coins[MAX_COIN_COUNT - 1].center.y;
 
@@ -183,7 +183,7 @@ void strikerDirection(void) {
 }
 
 void powerReader(void) {
-	int currentPower = state.currentPower;
+	int currentPower = state->currentPower;
 
 	glColor3f(POWER_READER_ON);
 	glBegin(GL_POLYGON);

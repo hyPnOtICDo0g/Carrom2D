@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 
-#include "carrom.h"
 #include "scene.h"
+#include "carrom.h"
+#include "context.h"
 #include "utilities.h"
 
 void copyCoinArrays(struct Coin *coinsFrom, struct Coin *coinsTo, int size) {
@@ -69,4 +70,11 @@ void drawCircleOutline(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint c
 			glVertex2f((BOARD_SCALING_FACTOR * centerX + effectiveRadius * cos(angle)), (BOARD_SCALING_FACTOR * centerY + effectiveRadius * sin(angle)));
 		}
 	glEnd();
+}
+
+void exitGame(void) {
+	free(state->coins);
+	free(start->coins);
+	free(start);
+	free(state);
 }
