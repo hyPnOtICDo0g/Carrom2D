@@ -1,11 +1,13 @@
+#include <math.h>
 #include <stdlib.h>
+#include <GL/glut.h>
 
 #include "carrom.h"
+#include "scene.h"
 #include "utilities.h"
 
-void copyCoinArrays(struct Coin *coinsTo, struct Coin *coinsFrom, int size) {
-	int i;
-	for(i = 0; i < size; i++) {
+void copyCoinArrays(struct Coin *coinsFrom, struct Coin *coinsTo, int size) {
+	for(int i = 0; i < size; i++) {
 		coinsTo[i] = coinsFrom[i];
 	}
 }
@@ -18,8 +20,8 @@ void memCheck(void *ptr) {
 }
 
 int numActiveWhite(struct Coin *coins) {
-	int i, count = 0;
-	for(i = 0; i < (MAX_COIN_COUNT - 2) / 2; i++) {
+	int count = 0;
+	for(int i = 0; i < (MAX_COIN_COUNT - 2) / 2; i++) {
 		if(coins[i].state == 1) {
 			count += 1;
 		}
@@ -29,8 +31,8 @@ int numActiveWhite(struct Coin *coins) {
 
 
 int numActiveBlack(struct Coin *coins) {
-	int i, count = 0;
-	for(i = (MAX_COIN_COUNT - 2) / 2; i < (MAX_COIN_COUNT - 2); i++) {
+	int count = 0;
+	for(int i = (MAX_COIN_COUNT - 2) / 2; i < (MAX_COIN_COUNT - 2); i++) {
 		if(coins[i].state == 1) {
 			count += 1;
 		}
@@ -45,4 +47,26 @@ int isQueenActive(struct Coin *coins) {
 	else {
 		return 0;
 	}
+}
+
+void drawCircleFilled(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint cda) {
+	GLint i; GLfloat angle;
+	GLfloat effectiveRadius = BOARD_SCALING_FACTOR * radius;
+	glBegin(GL_POLYGON);
+		for(i = 0; i < cda; i++) {
+			angle = 2 * M_PI * i / cda;
+			glVertex2f((BOARD_SCALING_FACTOR * centerX + effectiveRadius * cos(angle)), (BOARD_SCALING_FACTOR * centerY + effectiveRadius * sin(angle)));
+		}
+	glEnd();
+}
+
+void drawCircleOutline(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint cda, GLint pointOne, GLint pointTwo) {
+	GLint i; GLfloat angle;
+	GLfloat effectiveRadius = BOARD_SCALING_FACTOR * radius;
+	glBegin(GL_LINE_STRIP);
+		for(i = pointOne; i < pointTwo; i++) {
+			angle = 2 * M_PI * i / cda;
+			glVertex2f((BOARD_SCALING_FACTOR * centerX + effectiveRadius * cos(angle)), (BOARD_SCALING_FACTOR * centerY + effectiveRadius * sin(angle)));
+		}
+	glEnd();
 }

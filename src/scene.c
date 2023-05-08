@@ -77,16 +77,16 @@ struct BoardStatus *initNewGame(struct GameState *gameState) {
 	struct BoardStatus *boardStatus = (struct BoardStatus *) malloc(sizeof(struct BoardStatus));
 	memCheck(coins); memCheck(boardStatus);
 	// `boardStatus` requires a copy of the coin array
-	copyCoinArrays(coins, gameState->coins, MAX_COIN_COUNT);
 	gameState->glWidth = INITIAL_WINDOW_WIDTH;
 	gameState->glHeight = INITIAL_WINDOW_HEIGHT;
 	// striker is initially stationary
 	gameState->strikerState = 1;
 	gameState->currentPower = 0;
-	gameState->numberOfPlayers = 4;
+	gameState->numberOfPlayers = 3;
 
 	initCarromCoins(gameState);
 	initStriker(gameState, 0);
+	copyCoinArrays(gameState->coins, coins, MAX_COIN_COUNT);
 
 	boardStatus->turn = 0;
 	boardStatus->currentTeam = 1;
