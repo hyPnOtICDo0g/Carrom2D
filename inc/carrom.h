@@ -4,14 +4,14 @@
 #include <GL/glut.h>
 
 /*
-	C Implementation of the Classic Carrom Game in OpenGL
-	Based on Multiplayer Carrom by Shantanu Chaudhary and Chainn Singh
+	C port of the Classic Carrom Game in OpenGL, based on
+	Multiplayer Carrom by Shantanu Chaudhary and Chainn Singh.
 
 	Terminology used in this game is sourced from the
 	Carrom Wikipedia page: https://en.wikipedia.org/wiki/Carrom
 
 	Constants such as mass, radius, etc. defined below, serve as
-	scaling factors that can be adjusted to alter the game scene
+	scaling factors that can be adjusted to alter the game scene.
 */
 
 /* GENERAL COLOR CONSTANTS */

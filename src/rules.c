@@ -13,7 +13,7 @@ void initNewTurn(struct GameState *gameState, struct BoardStatus *start) {
 	if(finalCoins[MAX_COIN_COUNT - 1].state == 0) {
 		/*
 			If the striker is found to be in the pot, subtract one point
-			from the current team's score and remove all coins scored at that shot
+			from the current team's score and remove all coins scored at that shot.
 		*/
 		if(currentTeam == 1) {
 			start->pointsTeamOne -= STRIKER_POINT_LOSS;
@@ -53,8 +53,7 @@ void initNewTurn(struct GameState *gameState, struct BoardStatus *start) {
 }
 
 void revertCoinsOnFoul(struct Coin *initialCoins, struct Coin *finalCoins) {
-	int i;
-	for(i = 0; i < MAX_COIN_COUNT - 1; i++) {
+	for(int i = 0; i < MAX_COIN_COUNT - 1; i++) {
 		if(initialCoins[i].state != finalCoins[i].state) {
 			finalCoins[i].state = 1;
 			finalCoins[i].velocity.x = 0;
