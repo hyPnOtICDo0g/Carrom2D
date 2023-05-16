@@ -77,8 +77,6 @@ struct BoardStatus *initNewGame(struct GameState *gameState) {
 	struct BoardStatus *boardStatus = (struct BoardStatus *) malloc(sizeof(struct BoardStatus));
 	memCheck(coins); memCheck(boardStatus);
 	// `boardStatus` requires a copy of the coin array
-	gameState->glWidth = INITIAL_WINDOW_WIDTH;
-	gameState->glHeight = INITIAL_WINDOW_HEIGHT;
 	// striker is initially stationary
 	gameState->strikerState = 1;
 	gameState->currentPower = MIN_POWER_READER;

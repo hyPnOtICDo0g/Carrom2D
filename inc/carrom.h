@@ -116,8 +116,6 @@ struct BoardStatus {
 // struct definition of the current state of the game
 struct GameState {
 	float theta;            // angle of the striker in the direction it is pointing towards
-	GLint glWidth;          // width of the game window
-	GLint glHeight;         // height of the game window
 	int strikerState;       // state of the striker; set to 0 when the striker is in action and 1 when stationary
 	int currentPower;       // force with which the striker is intended to be struck
 	int numberOfPlayers;    // number of players playing the game; 2 or 4

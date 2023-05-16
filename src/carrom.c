@@ -23,6 +23,13 @@ int main(int argc, char **argv) {
 	// using two buffers to achieve smoother animation
 	// enable multisample anti-aliasing (MSAA) to reduce jaggies
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_MULTISAMPLE);
+	/*
+		Although `glutFullScreen` is currently being utilized,
+		the following line is retained for the reshape function
+		and potential future usage, such as providing the user
+		with the option to personalize the window size.
+	*/
+	glutInitWindowSize(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
 	glutCreateWindow("Multiplayer Carrom");
 	// register callback functions
 	glutDisplayFunc(display);

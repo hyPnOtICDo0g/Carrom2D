@@ -3,12 +3,6 @@
 
 #include "carrom.h"
 
-/* OPENGL CONSTANTS */
-
-#define INITIAL_WINDOW_WIDTH 800
-#define INITIAL_WINDOW_HEIGHT 700
-#define BOARD_SCALING_FACTOR 0.75	// single constant to scale the entire board
-
 // allocate memory for the global game state
 struct GameState *createNewGameState(void);
 

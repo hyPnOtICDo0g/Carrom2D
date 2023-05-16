@@ -1,6 +1,5 @@
 #include <GL/glut.h>
 
-#include "scene.h"
 #include "carrom.h"
 #include "physics.h"
 #include "drawable.h"

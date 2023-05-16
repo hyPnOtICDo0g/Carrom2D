@@ -2,7 +2,6 @@
 #include <GL/glut.h>
 
 #include "rules.h"
-#include "scene.h"
 #include "context.h"
 #include "display.h"
 #include "physics.h"

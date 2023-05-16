@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 
-#include "scene.h"
 #include "carrom.h"
 #include "context.h"
+#include "drawable.h"
 #include "utilities.h"
 
 void copyCoinArrays(struct Coin *coinsFrom, struct Coin *coinsTo, int size) {
