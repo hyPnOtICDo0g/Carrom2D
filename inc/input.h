@@ -1,6 +1,8 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+/* INPUT CONSTANTS */
+
 #define ESC 27
 #define SPACE 32
 

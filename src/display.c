@@ -37,10 +37,7 @@ void trigger(int value) {
 	struct Coin *coins = state->coins;
 	float reciprocalVelocity = 1.0 / (float) value;
 
-	if(state->strikerState == 1) {
-		state->currentPower = (state->currentPower + MIN_POWER_READER) % MAX_POWER_READER;
-	}
-	else {
+	if(state->strikerState == 0) {
 		for(i = 0; i < MAX_COIN_COUNT; i ++) {
 			for(j = i + 1; j < MAX_COIN_COUNT; j++) {
 				if((coins[i].state == 1) && (coins[j].state == 1)) {
@@ -109,7 +106,7 @@ void carromBoard(void) {
 	drawBoardBaseLines();
 	drawBoardCircles();
 	drawBoardFrame();
-	for(int i = BOTTOM_LEFT; i <= TOP_RIGHT; i++) {
+	for(int i = BOARD_BOTTOM_LEFT; i <= BOARD_TOP_RIGHT; i++) {
 		drawBoardArrows(i);
 	}
 }

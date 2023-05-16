@@ -1,11 +1,6 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
 
-#define BOTTOM_LEFT 0
-#define BOTTOM_RIGHT 1
-#define TOP_LEFT 2
-#define TOP_RIGHT 3
-
 // display the edges of the board
 void drawBoardFrame(void);
 

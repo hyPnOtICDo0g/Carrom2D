@@ -124,7 +124,7 @@ void drawBoardArrows(short position) {
 	glColor3f(BOARD_LINE_COLOR);
 
 	switch(position) {
-		case TOP_LEFT:
+		case BOARD_TOP_LEFT:
 			centerX *= -1;
 			glBegin(GL_LINES);
 				glVertex2f(-BOARD_SCALING_FACTOR * ARROW_HEAD_POINT, BOARD_SCALING_FACTOR * ARROW_HEAD_POINT);
@@ -152,7 +152,7 @@ void drawBoardArrows(short position) {
 			glEnd();
 			break;
 
-		case TOP_RIGHT:
+		case BOARD_TOP_RIGHT:
 			glBegin(GL_LINES);
 				glVertex2f(BOARD_SCALING_FACTOR * ARROW_HEAD_POINT, BOARD_SCALING_FACTOR * ARROW_HEAD_POINT);
 				glVertex2f(BOARD_SCALING_FACTOR * ARROW_BASE_POINT, BOARD_SCALING_FACTOR * ARROW_BASE_POINT);
@@ -179,7 +179,7 @@ void drawBoardArrows(short position) {
 			glEnd();
 			break;
 
-		case BOTTOM_LEFT:
+		case BOARD_BOTTOM_LEFT:
 			centerX *= -1; centerY *= -1;
 			glBegin(GL_LINES);
 				glVertex2f(-BOARD_SCALING_FACTOR * ARROW_HEAD_POINT, -BOARD_SCALING_FACTOR * ARROW_HEAD_POINT);
@@ -207,7 +207,7 @@ void drawBoardArrows(short position) {
 			glEnd();
 			break;
 
-		case BOTTOM_RIGHT:
+		case BOARD_BOTTOM_RIGHT:
 			centerY *= -1;
 			glBegin(GL_LINES);
 				glVertex2f(BOARD_SCALING_FACTOR * ARROW_HEAD_POINT, -BOARD_SCALING_FACTOR * ARROW_HEAD_POINT);

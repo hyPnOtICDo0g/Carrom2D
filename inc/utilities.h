@@ -12,7 +12,7 @@
 void memCheck(void *ptr);
 
 // gracefully exit the game
-void exitGame(void);
+void exitCurrentGame(void);
 
 // utility to deep copy a coin array
 void copyCoinArrays(struct Coin *coinsFrom, struct Coin *coinsTo, int size);

@@ -72,7 +72,7 @@ void drawCircleOutline(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint c
 	glEnd();
 }
 
-void exitGame(void) {
+void exitCurrentGame(void) {
 	free(state->coins);
 	free(start->coins);
 	free(start);

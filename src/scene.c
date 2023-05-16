@@ -81,7 +81,7 @@ struct BoardStatus *initNewGame(struct GameState *gameState) {
 	gameState->glHeight = INITIAL_WINDOW_HEIGHT;
 	// striker is initially stationary
 	gameState->strikerState = 1;
-	gameState->currentPower = 0;
+	gameState->currentPower = MIN_POWER_READER;
 	gameState->numberOfPlayers = 3;
 
 	initCarromCoins(gameState);
@@ -189,5 +189,23 @@ void shiftStrikerRight(struct GameState *gameState, struct BoardStatus *start) {
 				}
 			}
 		}
+	}
+}
+
+void increaseStrikerPower(struct GameState *gameState) {
+	if(gameState->currentPower == MAX_POWER_READER) {
+		gameState->currentPower = MAX_POWER_READER;
+	}
+	else {
+		gameState->currentPower += 25;
+	}
+}
+
+void decreaseStrikerPower(struct GameState *gameState) {
+	if(gameState->currentPower == MIN_POWER_READER) {
+		gameState->currentPower = MIN_POWER_READER;
+	}
+	else {
+		gameState->currentPower -= 25;
 	}
 }

@@ -3,7 +3,7 @@
 
 #include "carrom.h"
 
-/* OpenGL Constants */
+/* OPENGL CONSTANTS */
 
 #define INITIAL_WINDOW_WIDTH 800
 #define INITIAL_WINDOW_HEIGHT 700
@@ -29,5 +29,11 @@ void shiftStrikerLeft(struct GameState *gameState, struct BoardStatus *status);
 
 // shift striker to the right side of the board
 void shiftStrikerRight(struct GameState *gameState, struct BoardStatus *status);
+
+// increase the power with which the striker is hit
+void increaseStrikerPower(struct GameState *gameState);
+
+// decrease the power with which the striker is hit
+void decreaseStrikerPower(struct GameState *gameState);
 
 #endif

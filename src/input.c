@@ -42,8 +42,14 @@ void joystick(unsigned int buttonMask, int x, int y, int z) {
 		if(buttonMask & GLUT_JOYSTICK_RIGHT_BUMPER) {
 			shiftStrikerRight(state, start);
 		}
-		if(buttonMask & GLUT_JOYSTICK_BUTTON_A) {
+		if(buttonMask & GLUT_JOYSTICK_BUTTON_B) {
 			hitStriker();
+		}
+		if(buttonMask & GLUT_JOYSTICK_BUTTON_D) {
+			increaseStrikerPower(state);
+		}
+		if(buttonMask & GLUT_JOYSTICK_BUTTON_A) {
+			decreaseStrikerPower(state);
 		}
 		if (x && y) {
 			// calculate the angle of the striker based on the joystick's x and y axis
@@ -64,6 +70,14 @@ void special(int key, int x, int y) {
 			// decrease the angle of the striker
 			case GLUT_KEY_RIGHT:
 				state->theta -= 1;
+				break;
+			// increase the power
+			case GLUT_KEY_UP:
+				increaseStrikerPower(state);
+				break;
+			// decrease the power
+			case GLUT_KEY_DOWN:
+				decreaseStrikerPower(state);
 				break;
 		}
 	}
