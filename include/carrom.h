@@ -1,8 +1,6 @@
 #ifndef CARROM_H
 #define CARROM_H
 
-#include <GL/glut.h>
-
 /*
 	C port of the Classic Carrom Game in OpenGL, based on
 	Multiplayer Carrom by Shantanu Chaudhary and Chainn Singh.
