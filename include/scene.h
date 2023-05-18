@@ -16,7 +16,7 @@ void initCarromCoins(struct GameState *gameState);
 void initNewBoard(struct GameState *gameState, struct BoardStatus *status);
 
 // set the necessary game variables to start a new game
-struct BoardStatus *initNewGame(struct GameState *gameState);
+struct BoardStatus *initNewGame(struct GameState *gameState, int players);
 
 // shift striker to the left side of the board
 void shiftStrikerLeft(struct GameState *gameState, struct BoardStatus *status);

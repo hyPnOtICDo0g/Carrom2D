@@ -14,6 +14,9 @@ void memCheck(void *ptr);
 // gracefully exit the game
 void exitCurrentGame(void);
 
+// end the current game session and initiate a new game
+void restartGame(int players);
+
 // utility to deep copy a coin array
 void copyCoinArrays(struct Coin *coinsFrom, struct Coin *coinsTo, int size);
 

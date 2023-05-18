@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 
+#include "menu.h"
 #include "input.h"
 #include "scene.h"
 #include "carrom.h"
@@ -14,8 +15,8 @@ struct BoardStatus *start;
 int main(int argc, char **argv) {
 	// create a new shared game state
 	state = createNewGameState();
-	// create a new empty game scene
-	start = initNewGame(state);
+	// create a new empty game scene with the default setting of two players (0 and 1)
+	start = initNewGame(state, 1);
 	// initialize the GLUT library
 	glutInit(&argc, argv);
 	// register memory cleanup handler
@@ -31,6 +32,8 @@ int main(int argc, char **argv) {
 	*/
 	glutInitWindowSize(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
 	glutCreateWindow("Multiplayer Carrom");
+	// create game menu
+	createGameMenu();
 	// register callback functions
 	glutDisplayFunc(display);
 	glutTimerFunc(TRIGGER, trigger, VELOCITY);

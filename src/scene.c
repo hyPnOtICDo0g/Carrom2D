@@ -72,7 +72,7 @@ void initCarromCoins(struct GameState *gameState) {
 	}
 }
 
-struct BoardStatus *initNewGame(struct GameState *gameState) {
+struct BoardStatus *initNewGame(struct GameState *gameState, int players) {
 	struct Coin *coins = (struct Coin *) malloc(MAX_COIN_COUNT * sizeof(struct Coin));
 	struct BoardStatus *boardStatus = (struct BoardStatus *) malloc(sizeof(struct BoardStatus));
 	memCheck(coins); memCheck(boardStatus);
@@ -80,7 +80,7 @@ struct BoardStatus *initNewGame(struct GameState *gameState) {
 	// striker is initially stationary
 	gameState->strikerState = 1;
 	gameState->currentPower = MIN_POWER_READER;
-	gameState->numberOfPlayers = 3;
+	gameState->numberOfPlayers = players;
 
 	initCarromCoins(gameState);
 	initStriker(gameState, 0);

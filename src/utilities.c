@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 
+#include "scene.h"
 #include "carrom.h"
 #include "context.h"
 #include "drawable.h"
@@ -15,7 +16,6 @@ void copyCoinArrays(struct Coin *coinsFrom, struct Coin *coinsTo, int size) {
 
 void memCheck(void *ptr) {
 	if(ptr == NULL) {
-		// printf("warning: insufficient memory\n");
 		exit(1);
 	}
 }
@@ -77,4 +77,14 @@ void exitCurrentGame(void) {
 	free(start->coins);
 	free(start);
 	free(state);
+}
+
+void restartGame(int players) {
+	// -1 indicates a regular restart with the same number of players
+	if(players == -1) {
+		players = state->numberOfPlayers + 1;
+	}
+	exitCurrentGame();
+	state = createNewGameState();
+	start = initNewGame(state, players - 1);
 }
