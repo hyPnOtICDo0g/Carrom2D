@@ -43,6 +43,9 @@ bin/
 *.idb
 *.pdb
 
+# resource files
+*.res
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd

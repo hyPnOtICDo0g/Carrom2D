@@ -180,8 +180,23 @@ void strikerDirection(void) {
 
 void powerReader(void) {
 	int currentPower = state->currentPower;
+	// 25% power
+	if(currentPower == POWER_READER_VARIATION) {
+		glColor3f(POWER_READER_ON_25);
+	}
+	// 50% power
+	else if(currentPower == POWER_READER_VARIATION * 2) {
+		glColor3f(POWER_READER_ON_50);
+	}
+	// 75% power
+	else if(currentPower == POWER_READER_VARIATION * 3) {
+		glColor3f(POWER_READER_ON_75);
+	}
+	// 100% power
+	else {
+		glColor3f(POWER_READER_ON_100);
+	}
 
-	glColor3f(POWER_READER_ON);
 	glBegin(GL_POLYGON);
 		glVertex2f(BOARD_SCALING_FACTOR + POWER_READER_WIDTH, BOARD_SCALING_FACTOR * (-1.0 + 2.0 * ((float) currentPower / (float) MAX_POWER_READER)) / 2.0);
 		glVertex2f(BOARD_SCALING_FACTOR + 2 * POWER_READER_WIDTH, BOARD_SCALING_FACTOR * (-1.0 + (2.0 * ((float) currentPower / (float) MAX_POWER_READER))) / 2.0);

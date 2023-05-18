@@ -195,7 +195,7 @@ void increaseStrikerPower(struct GameState *gameState) {
 		gameState->currentPower = MAX_POWER_READER;
 	}
 	else {
-		gameState->currentPower += 25;
+		gameState->currentPower += POWER_READER_VARIATION;
 	}
 }
 
@@ -204,6 +204,6 @@ void decreaseStrikerPower(struct GameState *gameState) {
 		gameState->currentPower = MIN_POWER_READER;
 	}
 	else {
-		gameState->currentPower -= 25;
+		gameState->currentPower -= POWER_READER_VARIATION;
 	}
 }
