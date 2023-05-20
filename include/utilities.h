@@ -1,8 +1,6 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#include <GL/glut.h>
-
 #include "carrom.h"
 
 // circumvent compiler warnings for unused variables in callback functions
@@ -28,11 +26,5 @@ int numActiveBlack(struct Coin *coins);
 
 // return the number of active white coins
 int numActiveWhite(struct Coin *coins);
-
-// fill circles with suitable colors on the board
-void drawCircleFilled(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint cda);
-
-// draw a circular outline that spans between two points
-void drawCircleOutline(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint cda, GLint pointOne, GLint pointTwo);
 
 #endif

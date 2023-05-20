@@ -22,6 +22,16 @@ void initNewTurn(struct GameState *gameState, struct BoardStatus *start) {
 			start->pointsTeamTwo -= STRIKER_POINT_LOSS;
 		}
 
+		// determine if the score is negative
+		if(start->pointsTeamOne < 0) {
+			// if the condition is true, then set it to zero
+			start->pointsTeamOne = 0;
+		}
+
+		if(start->pointsTeamTwo < 0) {
+			start->pointsTeamTwo = 0;
+		}
+
 		revertCoinsOnFoul(initialCoins, finalCoins);
 		finalize(gameState, start, false);
 	}
@@ -67,6 +77,11 @@ void revertCoinsOnFoul(struct Coin *initialCoins, struct Coin *finalCoins) {
 void finalize(struct GameState *gameState, struct BoardStatus *start, bool strikerState) {
 	struct Coin *coins = gameState->coins;
 	int numberOfCoinsLeft = numActiveWhite(coins) + numActiveBlack(coins) + isQueenActive(coins);
+	// if either team scores more than 50 points, initiate a game reset
+	if(start->pointsTeamOne > 50 || start->pointsTeamTwo > 50) {
+		restartGame(-1);
+		return;
+	}
 	// if all coins are scored, then number of coins on the board is zero
 	if(numberOfCoinsLeft == 0) {
 		initNewBoard(gameState, start);

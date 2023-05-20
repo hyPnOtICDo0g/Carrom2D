@@ -1,4 +1,3 @@
-#include <math.h>
 #include <stdlib.h>
 #include <GL/glut.h>
 
@@ -48,28 +47,6 @@ int isQueenActive(struct Coin *coins) {
 	else {
 		return 0;
 	}
-}
-
-void drawCircleFilled(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint cda) {
-	GLint i; GLfloat angle;
-	GLfloat effectiveRadius = BOARD_SCALING_FACTOR * radius;
-	glBegin(GL_POLYGON);
-		for(i = 0; i < cda; i++) {
-			angle = 2 * M_PI * i / cda;
-			glVertex2f((BOARD_SCALING_FACTOR * centerX + effectiveRadius * cos(angle)), (BOARD_SCALING_FACTOR * centerY + effectiveRadius * sin(angle)));
-		}
-	glEnd();
-}
-
-void drawCircleOutline(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint cda, GLint pointOne, GLint pointTwo) {
-	GLint i; GLfloat angle;
-	GLfloat effectiveRadius = BOARD_SCALING_FACTOR * radius;
-	glBegin(GL_LINE_STRIP);
-		for(i = pointOne; i < pointTwo; i++) {
-			angle = 2 * M_PI * i / cda;
-			glVertex2f((BOARD_SCALING_FACTOR * centerX + effectiveRadius * cos(angle)), (BOARD_SCALING_FACTOR * centerY + effectiveRadius * sin(angle)));
-		}
-	glEnd();
 }
 
 void exitCurrentGame(void) {

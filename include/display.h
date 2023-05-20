@@ -24,4 +24,10 @@ void strikerDirection(void);
 // display the power reader that shows the force applied to the striker
 void powerReader(void);
 
+// display the scores obtained by either team during their individual turns
+void scoreBoard(void);
+
+// display the team and player number while it is their turn
+void teamTurnPanel(void);
+
 #endif

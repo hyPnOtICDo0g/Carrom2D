@@ -1,6 +1,8 @@
 #ifndef CARROM_H
 #define CARROM_H
 
+#include "drawable.h"
+
 /*
 	C port of the Classic Carrom Game in OpenGL, based on
 	Multiplayer Carrom by Shantanu Chaudhary and Chainn Singh.
@@ -11,18 +13,6 @@
 	Constants such as mass, radius, etc. defined below, serve as
 	scaling factors that can be adjusted to alter the game scene.
 */
-
-/* GENERAL COLOR CONSTANTS */
-
-#define WHITE 1.0, 1.0, 1.0
-#define BLACK 0.0, 0.0, 0.0
-#define RED 1.0, 0.0, 0.0
-#define BLUE 0.0, 0.0, 1.0
-#define YELLOW 1.0, 1.0, 0.0
-#define GREY 0.149, 0.149, 0.149
-#define LIGHT_BROWN 0.9, 0.47, 0.1411
-#define DARK_BROWN 0.647, 0.164, 0.164
-#define OPACITY 1.0
 
 /* BOARD AND COIN CONSTANTS */
 
@@ -81,6 +71,11 @@
 #define POWER_READER_ON_100 RED
 #define POWER_READER_WIDTH 0.10
 #define POWER_READER_VARIATION 25
+
+/* SCORE DISPLAY CONSTANTS */
+
+#define SCORE_BOARD_PADDING 0.21
+#define SCORE_DISPLAY_LINE_WIDTH 10
 
 /* POINTS CONSTANTS */
 

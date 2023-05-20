@@ -1,4 +1,5 @@
-#include <GL/glut.h>
+#include <math.h>
+#include <GL/freeglut.h>
 
 #include "carrom.h"
 #include "physics.h"
@@ -234,4 +235,174 @@ void drawBoardArrows(short position) {
 			glEnd();
 			break;
 	}
+}
+
+void drawSegment(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2) {
+	glColor3f(WHITE);
+	glLineWidth(SCORE_DISPLAY_LINE_WIDTH);
+	glBegin(GL_LINES);
+		glVertex2f(x1, y1);
+		glVertex2f(x2, y2);
+	glEnd();
+	glLineWidth(DEFAULT_LINE_WIDTH);
+}
+
+void pickSegment(int segment, GLfloat x, GLfloat y) {
+	// drawing function that emulates a seven-segment display
+	/*
+				 5
+		   ┌───────────┐
+		   │           │
+		   │           │
+		3  │           │ 1
+		   │           │
+		   │     6     │
+		   ├───────────┤
+		   │           │
+		   │           │
+		4  │           │ 2
+		   │           │
+		   │           │
+		   └───────────┘
+				 7
+	 */
+	switch(segment) {
+		case 1:
+			drawSegment(x, y + SCORE_BOARD_PADDING, x, y);
+			break;
+
+		case 2:
+			drawSegment(x, y, x, y - SCORE_BOARD_PADDING);
+			break;
+
+		case 3:
+			drawSegment(x - SCORE_BOARD_PADDING, y + SCORE_BOARD_PADDING, x - SCORE_BOARD_PADDING, y);
+			break;
+
+		case 4:
+			drawSegment(x - SCORE_BOARD_PADDING, y, x - SCORE_BOARD_PADDING, y - SCORE_BOARD_PADDING);
+			break;
+
+		case 5:
+			drawSegment(x, y + SCORE_BOARD_PADDING, x - SCORE_BOARD_PADDING, y + SCORE_BOARD_PADDING);
+			break;
+
+		case 6:
+			drawSegment(x, y, x - SCORE_BOARD_PADDING, y);
+			break;
+
+		case 7:
+			drawSegment(x, y - SCORE_BOARD_PADDING, x - SCORE_BOARD_PADDING, y - SCORE_BOARD_PADDING);
+			break;
+	}
+}
+
+void drawDigit(int digit, GLfloat x, GLfloat y) {
+	switch(digit) {
+		case 0:
+			pickSegment(1, x, y);
+			pickSegment(2, x, y);
+			pickSegment(3, x, y);
+			pickSegment(4, x, y);
+			pickSegment(5, x, y);
+			pickSegment(7, x, y);
+			break;
+
+		case 1:
+			pickSegment(1, x, y);
+			pickSegment(2, x, y);
+			break;
+
+		case 2:
+			pickSegment(5, x, y);
+			pickSegment(1, x, y);
+			pickSegment(6, x, y);
+			pickSegment(4, x, y);
+			pickSegment(7, x, y);
+			break;
+
+		case 3:
+			pickSegment(5, x, y);
+			pickSegment(1, x, y);
+			pickSegment(6, x, y);
+			pickSegment(2, x, y);
+			pickSegment(7, x, y);
+			break;
+
+		case 4:
+			pickSegment(3, x, y);
+			pickSegment(1, x, y);
+			pickSegment(6, x, y);
+			pickSegment(2, x, y);
+			break;
+
+		case 5:
+			pickSegment(3, x, y);
+			pickSegment(5, x, y);
+			pickSegment(6, x, y);
+			pickSegment(2, x, y);
+			pickSegment(7, x, y);
+			break;
+
+		case 6:
+			pickSegment(3, x, y);
+			pickSegment(5, x, y);
+			pickSegment(6, x, y);
+			pickSegment(2, x, y);
+			pickSegment(7, x, y);
+			pickSegment(4, x, y);
+			break;
+
+		case 7:
+			pickSegment(1, x, y);
+			pickSegment(5, x, y);
+			pickSegment(2, x, y);
+			break;
+
+		case 8:
+			pickSegment(3, x, y);
+			pickSegment(5, x, y);
+			pickSegment(6, x, y);
+			pickSegment(2, x, y);
+			pickSegment(7, x, y);
+			pickSegment(1, x, y);
+			pickSegment(4, x, y);
+			break;
+
+		case 9:
+			pickSegment(3, x, y);
+			pickSegment(5, x, y);
+			pickSegment(6, x, y);
+			pickSegment(2, x, y);
+			pickSegment(7, x, y);
+			pickSegment(1, x, y);
+			break;
+	}
+}
+
+void drawStringAtPos(GLfloat xPos, GLfloat yPos, const unsigned char *string) {
+	glRasterPos2f(xPos, yPos);
+	glutBitmapString(GLUT_BITMAP_9_BY_15, string);
+}
+
+void drawCircleFilled(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint cda) {
+	GLint i; GLfloat angle;
+	GLfloat effectiveRadius = BOARD_SCALING_FACTOR * radius;
+	glBegin(GL_POLYGON);
+		for(i = 0; i < cda; i++) {
+			angle = 2 * M_PI * i / cda;
+			glVertex2f((BOARD_SCALING_FACTOR * centerX + effectiveRadius * cos(angle)), (BOARD_SCALING_FACTOR * centerY + effectiveRadius * sin(angle)));
+		}
+	glEnd();
+}
+
+void drawCircleOutline(GLfloat radius, GLfloat centerX, GLfloat centerY, GLint cda, GLint pointOne, GLint pointTwo) {
+	GLint i; GLfloat angle;
+	GLfloat effectiveRadius = BOARD_SCALING_FACTOR * radius;
+	glBegin(GL_LINE_STRIP);
+		for(i = pointOne; i < pointTwo; i++) {
+			angle = 2 * M_PI * i / cda;
+			glVertex2f((BOARD_SCALING_FACTOR * centerX + effectiveRadius * cos(angle)), (BOARD_SCALING_FACTOR * centerY + effectiveRadius * sin(angle)));
+		}
+	glEnd();
 }

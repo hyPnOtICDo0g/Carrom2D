@@ -13,6 +13,8 @@ void display(void) {
 	carromCoins();
 	strikerDirection();
 	powerReader();
+	scoreBoard();
+	teamTurnPanel();
 	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -211,4 +213,65 @@ void powerReader(void) {
 		glVertex2f(BOARD_SCALING_FACTOR + 2 * POWER_READER_WIDTH, BOARD_SCALING_FACTOR * (-1.0 + (2.0 * ((float) currentPower / (float) MAX_POWER_READER))) / 2.0);
 		glVertex2f(BOARD_SCALING_FACTOR + POWER_READER_WIDTH, BOARD_SCALING_FACTOR * (-1.0 + (2.0 * ((float) currentPower / (float) MAX_POWER_READER))) / 2.0);
 	glEnd();
+}
+
+void scoreBoard(void) {
+	int score;
+	float x = -1.03, y = 0;
+
+	// render a background for the score display
+	glColor3f(LIGHT_GREY);
+	glBegin(GL_QUADS);
+		glVertex2f(-1.67, 0.33);
+		glVertex2f(-1.67, -0.33);
+		glVertex2f(-1, -0.33);
+		glVertex2f(-1, 0.33);
+	glEnd();
+
+	if(start->currentTeam == 1) {
+		score = start->pointsTeamOne;
+	}
+	else {
+		score = start->pointsTeamTwo;
+	}
+
+	if(score == 0) {
+		drawDigit(0, x, y);
+	}
+	else {
+		// extract each digit and display them individually
+		while(score != 0) {
+			drawDigit(score % 10, x, y);
+			score /= 10;
+			x -= 0.4;
+		}
+		x = -1.03;
+	}
+	drawStringAtPos(-1.385, -0.3, (const unsigned char *) "SCORE");
+}
+
+void teamTurnPanel(void) {
+	float x = 1.69, y = 0.77, digitX = 1.47, digitY = 0.5;
+
+	// render a background for the player number display
+	glColor3f(LIGHT_GREY);
+	glBegin(GL_QUADS);
+		glVertex2f(x, y);
+		glVertex2f(x, y - 0.59);
+		glVertex2f(x - 0.65, y - 0.59);
+		glVertex2f(x - 0.65, y);
+	glEnd();
+	drawDigit(start->turn + 1, digitX, digitY);
+	drawStringAtPos(1.31, 0.2, (const unsigned char *) "PLAYER");
+
+	// render a background for the team number display
+	glColor3f(LIGHT_GREY);
+	glBegin(GL_QUADS);
+		glVertex2f(x, -(y + 0.06));
+		glVertex2f(x, -(y - 0.53));
+		glVertex2f(x - 0.65, -(y - 0.53));
+		glVertex2f(x - 0.65, -(y + 0.06));
+	glEnd();
+	drawDigit(start->currentTeam, digitX, -digitY);
+	drawStringAtPos(1.33, -0.8, (const unsigned char *) "TEAM");
 }

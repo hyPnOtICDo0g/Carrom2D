@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdlib.h>
 
 #include "scene.h"
 #include "carrom.h"
