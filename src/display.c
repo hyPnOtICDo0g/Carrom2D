@@ -10,11 +10,11 @@
 
 void display(void) {
 	carromBoard();
-	carromCoins();
-	strikerDirection();
-	powerReader();
-	scoreBoard();
-	teamTurnPanel();
+	carromCoins(state);
+	strikerDirection(state);
+	powerReader(state);
+	scoreBoard(start);
+	teamTurnPanel(start);
 	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -112,8 +112,8 @@ void carromBoard(void) {
 	}
 }
 
-void carromCoins(void) {
-	int i; struct Coin *coins = state->coins;
+void carromCoins(struct GameState *gameState) {
+	int i; struct Coin *coins = gameState->coins;
 	// place coins in their initial positions
 	for(i = 0; i < (MAX_COIN_COUNT - 2) / 2; i++) {
 		// if the coin is in the pot, color it black
@@ -161,11 +161,11 @@ void carromCoins(void) {
 	}
 }
 
-void strikerDirection(void) {
-	float theta = state->theta;
-	struct Coin *coins = state->coins;
+void strikerDirection(struct GameState *gameState) {
+	float theta = gameState->theta;
+	struct Coin *coins = gameState->coins;
 
-	if(state->strikerState == 1) {
+	if(gameState->strikerState == 1) {
 		float strikerX = BOARD_SCALING_FACTOR * coins[MAX_COIN_COUNT - 1].center.x;
 		float strikerY = BOARD_SCALING_FACTOR * coins[MAX_COIN_COUNT - 1].center.y;
 
@@ -180,8 +180,8 @@ void strikerDirection(void) {
 	}
 }
 
-void powerReader(void) {
-	int currentPower = state->currentPower;
+void powerReader(struct GameState *gameState) {
+	int currentPower = gameState->currentPower;
 	// 25% power
 	if(currentPower == POWER_READER_VARIATION) {
 		glColor3f(POWER_READER_ON_25);
@@ -215,7 +215,7 @@ void powerReader(void) {
 	glEnd();
 }
 
-void scoreBoard(void) {
+void scoreBoard(struct BoardStatus *boardStatus) {
 	int score;
 	float x = -1.03, y = 0;
 
@@ -228,11 +228,11 @@ void scoreBoard(void) {
 		glVertex2f(-1, 0.33);
 	glEnd();
 
-	if(start->currentTeam == 1) {
-		score = start->pointsTeamOne;
+	if(boardStatus->currentTeam == 1) {
+		score = boardStatus->pointsTeamOne;
 	}
 	else {
-		score = start->pointsTeamTwo;
+		score = boardStatus->pointsTeamTwo;
 	}
 
 	if(score == 0) {
@@ -250,7 +250,7 @@ void scoreBoard(void) {
 	drawStringAtPos(-1.385, -0.3, (const unsigned char *) "SCORE");
 }
 
-void teamTurnPanel(void) {
+void teamTurnPanel(struct BoardStatus *boardStatus) {
 	float x = 1.69, y = 0.77, digitX = 1.47, digitY = 0.5;
 
 	// render a background for the player number display
@@ -261,7 +261,7 @@ void teamTurnPanel(void) {
 		glVertex2f(x - 0.65, y - 0.59);
 		glVertex2f(x - 0.65, y);
 	glEnd();
-	drawDigit(start->turn + 1, digitX, digitY);
+	drawDigit(boardStatus->turn + 1, digitX, digitY);
 	drawStringAtPos(1.31, 0.2, (const unsigned char *) "PLAYER");
 
 	// render a background for the team number display
@@ -272,6 +272,6 @@ void teamTurnPanel(void) {
 		glVertex2f(x - 0.65, -(y - 0.53));
 		glVertex2f(x - 0.65, -(y + 0.06));
 	glEnd();
-	drawDigit(start->currentTeam, digitX, -digitY);
+	drawDigit(boardStatus->currentTeam, digitX, -digitY);
 	drawStringAtPos(1.33, -0.8, (const unsigned char *) "TEAM");
 }

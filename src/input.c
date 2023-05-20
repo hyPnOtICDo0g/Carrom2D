@@ -26,7 +26,7 @@ void keyboard(unsigned char key, int x, int y) {
 				break;
 
 			case SPACE:
-				hitStriker();
+				hitStriker(state);
 				break;
 
 		}
@@ -43,7 +43,7 @@ void joystick(unsigned int buttonMask, int x, int y, int z) {
 			shiftStrikerRight(state, start);
 		}
 		if(buttonMask & GLUT_JOYSTICK_BUTTON_B) {
-			hitStriker();
+			hitStriker(state);
 		}
 		if(buttonMask & GLUT_JOYSTICK_BUTTON_D) {
 			increaseStrikerPower(state);

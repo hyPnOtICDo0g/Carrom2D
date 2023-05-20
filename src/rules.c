@@ -96,7 +96,10 @@ void finalize(struct GameState *gameState, struct BoardStatus *start, bool strik
 			- the player has not scored any points
 		*/
 		if(strikerState == false) {
-			if(numberOfPlayers < 3) {
+			if(numberOfPlayers == 0) {
+				turn = 0;
+			}
+			else if(numberOfPlayers < 3) {
 				turn = (turn + 2) % 4;
 				start->currentTeam = (int) (turn / 2) + 1;
 			}

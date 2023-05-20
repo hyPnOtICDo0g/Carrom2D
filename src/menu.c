@@ -7,9 +7,16 @@
 
 void menu(int option) {
     switch(option) {
+        case MENU_SUB_SINGLE_PLAYER_GAME:
+            // restart the game only if it is not a single-player game
+            if(state->numberOfPlayers > 0) {
+                restartGame(1);
+            }
+            break;
+
         case MENU_SUB_TWO_PLAYER_GAME:
             // restart the game only if it is not a two-player game
-            if(state->numberOfPlayers > 1) {
+            if(state->numberOfPlayers > 1 || state->numberOfPlayers == 0) {
                 restartGame(2);
             }
             break;
@@ -33,6 +40,7 @@ void menu(int option) {
 
 void createGameMenu(void) {
     int subMenuId = glutCreateMenu(menu);
+    glutAddMenuEntry("Single Player", MENU_SUB_SINGLE_PLAYER_GAME);
     glutAddMenuEntry("Two Players", MENU_SUB_TWO_PLAYER_GAME);
     glutAddMenuEntry("Four Players", MENU_SUB_FOUR_PLAYER_GAME);
     // create the main menu and attach the submenu

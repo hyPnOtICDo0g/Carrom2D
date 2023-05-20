@@ -28,7 +28,7 @@
 #define RADIANS_PER_DEGREE 57.29577951308232087679
 
 // calculate the force at which the striker has to be struck
-void hitStriker(void);
+void hitStriker(struct GameState *gameState);
 
 // simulate the physical interactions between coins during a collision
 void coinCollision(int i, int j, struct Coin *coins);
