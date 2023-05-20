@@ -1,0 +1,34 @@
+name: Build CI
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v3
+
+      - name: Create a Windows executable
+        shell: pwsh
+        run: |
+            pwsh .\scripts\build.ps1
+        if: matrix.os == 'windows-latest'
+
+      - name: Create a Linux executable
+        shell: bash
+        run: |
+            chmod +x ./scripts/build.sh
+            ./scripts/build.sh
+        if: matrix.os == 'ubuntu-latest'
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: binaries
+          path: ./bin/
+          retention-days: 5
